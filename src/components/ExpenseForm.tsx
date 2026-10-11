@@ -31,16 +31,16 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
 
   return (
     <form
-      className="border border-border bg-card p-6 my-4 flex flex-col gap-4"
+      className='border border-border bg-card p-6 my-4 flex flex-col gap-4'
       onSubmit={onSubmit}
     >
-      <div className="flex flex-col gap-1">
-        <label className="text-xs uppercase tracking-wider font-medium text-muted-foreground">
+      <div className='flex flex-col gap-1'>
+        <label className='text-xs uppercase tracking-wider font-medium text-muted-foreground'>
           Name
         </label>
         <input
-          className="rounded-none border border-input bg-transparent px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full"
-          type="text"
+          className='rounded-none border border-input bg-transparent px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full'
+          type='text'
           value={inputStates.name}
           onChange={(e) =>
             setInputStates((prev) => ({ ...prev, name: e.target.value }))
@@ -48,13 +48,13 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
         />
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label className="text-xs uppercase tracking-wider font-medium text-muted-foreground">
+      <div className='flex flex-col gap-1'>
+        <label className='text-xs uppercase tracking-wider font-medium text-muted-foreground'>
           Amount
         </label>
         <input
-          className="rounded-none border border-input bg-transparent px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full"
-          type="number"
+          className='rounded-none border border-input bg-transparent px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full'
+          type='number'
           value={inputStates.amount}
           onChange={(e) =>
             setInputStates((prev) => ({
@@ -65,14 +65,16 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
         />
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label className="text-xs uppercase tracking-wider font-medium text-muted-foreground">
+      <div className='flex flex-col gap-1'>
+        <label className='text-xs uppercase tracking-wider font-medium text-muted-foreground'>
           Category
         </label>
         <select
-          className="rounded-none border border-input bg-card px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full cursor-pointer"
+          className='rounded-none border border-input bg-card px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full cursor-pointer'
           defaultValue={
-            defaultValues?.category ? defaultValues.amount : EXPENSE_CATEGORIES[0]
+            defaultValues?.category
+              ? defaultValues.amount
+              : EXPENSE_CATEGORIES[0]
           }
           onChange={(e) =>
             setInputStates((prev) => ({
@@ -90,8 +92,8 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
       </div>
 
       <button
-        type="submit"
-        className="rounded-none uppercase tracking-wider font-medium text-sm bg-primary text-primary-foreground h-10 px-4 py-2 hover:bg-primary/90 transition-colors self-start"
+        type='submit'
+        className='rounded-none uppercase tracking-wider font-medium text-sm bg-primary text-primary-foreground h-10 px-4 py-2 hover:bg-primary/90 transition-colors self-start cursor-pointer'
       >
         Apply
       </button>
