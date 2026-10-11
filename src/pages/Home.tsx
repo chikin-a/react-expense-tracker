@@ -1,24 +1,19 @@
 import { ExpenseForm } from '../components/ExpenseForm'
-import { ExpenseCard } from '../components/ExpenseCard'
 import { useExpenseContext } from '../hooks/useExpenseContext'
 import { useState } from 'react'
-import { type Expense, type ExpenseCategory } from '../types/expense.type'
-import { Filter } from '../components/Filter'
+import { type Expense } from '../types/expense.type'
 import { MonthlyAnalytics } from '../components/MonthlyAnalytics'
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { Button } from '../components/Button'
+import { ExpenseHistory } from '../components/ExpenseHistory'
 
 export const Home = () => {
-  const { expenses, addExpense, updateExpense, removeExpense } =
-    useExpenseContext()
+  const { expenses, addExpense, updateExpense } = useExpenseContext()
   const [isFormsVisible, setIsFormVisible] = useState({
     addForm: false,
     editFrom: false,
   })
   const [editingExpense, setEditingExpense] = useState<Expense>()
-  const [filterOptions, setFilterOptions] = useState<ExpenseCategory | null>(
-    null,
-  )
 
   useLockBodyScroll(isFormsVisible.addForm || isFormsVisible.editFrom)
 
@@ -64,20 +59,7 @@ export const Home = () => {
         onClick={() => setIsFormVisible((prev) => ({ ...prev, addForm: true }))}
       />
 
-      <h3 className='text-base font-bold uppercase tracking-wide text-foreground mt-8 mb-3'>
-        All Expenses
-      </h3>
-      <Filter activated={filterOptions} setActivated={setFilterOptions} />
-      {expenses
-        .filter((e) => (filterOptions ? e.category === filterOptions : e))
-        .map((e) => (
-          <ExpenseCard
-            key={e.id}
-            data={e}
-            onEdit={handleEditExpense}
-            onDelete={removeExpense}
-          />
-        ))}
+      <ExpenseHistory handleEditExpense={handleEditExpense} />
     </div>
   )
 }
