@@ -41,6 +41,8 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
         <input
           className='rounded-none border border-input bg-transparent px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full'
           type='text'
+          placeholder='Coffee...'
+          required
           value={inputStates.name}
           onChange={(e) =>
             setInputStates((prev) => ({ ...prev, name: e.target.value }))
@@ -55,6 +57,7 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
         <input
           className='rounded-none border border-input bg-transparent px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full'
           type='number'
+          required
           value={inputStates.amount}
           onChange={(e) =>
             setInputStates((prev) => ({
