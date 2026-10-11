@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { type Expense, type ExpenseCategory } from '../types/expense.type'
 import { Filter } from '../components/Filter'
 import { MonthlyAnalytics } from '../components/MonthlyAnalytics'
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
+import { Button } from '../components/Button'
 
 export const Home = () => {
   const { expenses, addExpense, updateExpense, removeExpense } =
@@ -17,6 +19,8 @@ export const Home = () => {
   const [filterOptions, setFilterOptions] = useState<ExpenseCategory | null>(
     null,
   )
+
+  useLockBodyScroll(isFormsVisible.addForm || isFormsVisible.editFrom)
 
   const handleAddExpense = (data: Expense) => {
     addExpense(data)
@@ -35,24 +39,30 @@ export const Home = () => {
 
   return (
     <div className='max-w-3xl mx-auto px-4 py-8 min-h-screen bg-background'>
-      <button
-        className='rounded-none uppercase tracking-wider font-medium text-sm bg-primary text-primary-foreground h-10 px-4 py-2 transition-colors hover:bg-primary/90'
-        onClick={() => setIsFormVisible((prev) => ({ ...prev, addForm: true }))}
-      >
-        Add Expense
-      </button>
-
       {isFormsVisible.addForm && (
-        <ExpenseForm handleSubmit={handleAddExpense} />
+        <div className='fixed top-0 left-0 flex justify-center align-middle w-full h-full bg-black/50'>
+          <div className='w-96 m-auto'>
+            <ExpenseForm handleSubmit={handleAddExpense} />
+          </div>
+        </div>
       )}
       {isFormsVisible.editFrom && (
-        <ExpenseForm
-          defaultValues={editingExpense}
-          handleSubmit={editExpense}
-        />
+        <div className='fixed top-0 left-0 flex justify-center align-middle w-full h-full bg-black/50'>
+          <div className='w-96 m-auto'>
+            <ExpenseForm
+              defaultValues={editingExpense}
+              handleSubmit={editExpense}
+            />
+          </div>
+        </div>
       )}
 
       <MonthlyAnalytics />
+
+      <Button
+        title='Add Expense'
+        onClick={() => setIsFormVisible((prev) => ({ ...prev, addForm: true }))}
+      />
 
       <h3 className='text-base font-bold uppercase tracking-wide text-foreground mt-8 mb-3'>
         All Expenses
