@@ -11,11 +11,11 @@ export const Home = () => {
   const { expenses, addExpense, updateExpense } = useExpenseContext()
   const [isFormsVisible, setIsFormVisible] = useState({
     addForm: false,
-    editFrom: false,
+    editForm: false,
   })
   const [editingExpense, setEditingExpense] = useState<Expense>()
 
-  useLockBodyScroll(isFormsVisible.addForm || isFormsVisible.editFrom)
+  useLockBodyScroll(isFormsVisible.addForm || isFormsVisible.editForm)
 
   const handleAddExpense = (data: Expense) => {
     addExpense(data)
@@ -27,7 +27,7 @@ export const Home = () => {
     setIsFormVisible((prev) => ({ ...prev, editFrom: false }))
   }
 
-  const handleEditExpense = (id: number) => {
+  const handleEditExpense = (id: string) => {
     setEditingExpense(() => expenses.find((e) => e.id === id))
     setIsFormVisible((prev) => ({ ...prev, editFrom: true }))
   }
@@ -37,16 +37,24 @@ export const Home = () => {
       {isFormsVisible.addForm && (
         <div className='fixed top-0 left-0 flex justify-center align-middle w-full h-full bg-black/50'>
           <div className='w-96 m-auto'>
-            <ExpenseForm handleSubmit={handleAddExpense} />
+            <ExpenseForm
+              handleSubmit={handleAddExpense}
+              onClose={() =>
+                setIsFormVisible(() => ({ addForm: false, editForm: false }))
+              }
+            />
           </div>
         </div>
       )}
-      {isFormsVisible.editFrom && (
+      {isFormsVisible.editForm && (
         <div className='fixed top-0 left-0 flex justify-center align-middle w-full h-full bg-black/50'>
           <div className='w-96 m-auto'>
             <ExpenseForm
               defaultValues={editingExpense}
               handleSubmit={editExpense}
+              onClose={() =>
+                setIsFormVisible(() => ({ addForm: false, editForm: false }))
+              }
             />
           </div>
         </div>
