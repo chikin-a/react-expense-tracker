@@ -4,24 +4,27 @@ import { EXPENSE_CATEGORIES, type Expense } from '../types/expense.type'
 type Props = {
   defaultValues?: Expense
   handleSubmit: (expense: Expense) => void
+  onClose: () => void
 }
 
-export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
+export const ExpenseForm = ({
+  defaultValues,
+  handleSubmit,
+  onClose,
+}: Props) => {
   const [inputStates, setInputStates] = useState<
     Pick<Expense, 'name' | 'amount' | 'category'>
   >(
     defaultValues
       ? defaultValues
-      : { name: '', amount: 0, category: EXPENSE_CATEGORIES[0] },
+      : { name: '', amount: 0.1, category: EXPENSE_CATEGORIES[0] },
   )
 
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     handleSubmit({
-      id: defaultValues?.id
-        ? defaultValues?.id
-        : new Date().getMilliseconds() * 3.7,
+      id: defaultValues?.id ? defaultValues?.id : crypto.randomUUID(),
       name: inputStates?.name,
       amount: inputStates.amount,
       category: inputStates.category,
@@ -58,6 +61,8 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
           className='rounded-none border border-input bg-transparent px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full'
           type='number'
           required
+          min={0.1}
+          step={0.1}
           value={inputStates.amount}
           onChange={(e) =>
             setInputStates((prev) => ({
@@ -76,7 +81,7 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
           className='rounded-none border border-input bg-card px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full cursor-pointer'
           defaultValue={
             defaultValues?.category
-              ? defaultValues.amount
+              ? defaultValues.category
               : EXPENSE_CATEGORIES[0]
           }
           onChange={(e) =>
@@ -96,9 +101,16 @@ export const ExpenseForm = ({ defaultValues, handleSubmit }: Props) => {
 
       <button
         type='submit'
-        className='rounded-none uppercase tracking-wider font-medium text-sm bg-primary text-primary-foreground h-10 px-4 py-2 hover:bg-primary/90 transition-colors self-start cursor-pointer'
+        className='w-full rounded-none uppercase tracking-wider font-medium text-sm bg-primary text-primary-foreground h-10 px-4 py-2 hover:bg-primary/90 transition-colors self-start cursor-pointer'
       >
         Apply
+      </button>
+      <button
+        onClick={onClose}
+        type='button'
+        className='w-full rounded-none uppercase tracking-wider font-medium text-sm bg-muted text-primary h-10 px-4 py-2 hover:bg-muted/90 transition-colors self-start cursor-pointer'
+      >
+        Close
       </button>
     </form>
   )
