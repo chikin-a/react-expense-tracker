@@ -9,7 +9,7 @@ export interface FilterParamsType {
   sortingType: 'ascending' | 'descending' | null
 }
 
-type Props = { handleEditExpense: (id: number) => void }
+type Props = { handleEditExpense: (id: string) => void }
 export const ExpenseHistory = ({ handleEditExpense }: Props) => {
   const { expenses, removeExpense } = useExpenseContext()
   const [filterParams, setFilterParams] = useState<FilterParamsType>({

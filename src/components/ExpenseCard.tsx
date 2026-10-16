@@ -2,8 +2,8 @@ import type { Expense } from '../types/expense.type'
 
 type Props = {
   data: Expense
-  onEdit: (id: number) => void
-  onDelete: (id: number) => void
+  onEdit: (id: string) => void
+  onDelete: (id: string) => void
 }
 
 export const ExpenseCard = ({ data, onEdit, onDelete }: Props) => {

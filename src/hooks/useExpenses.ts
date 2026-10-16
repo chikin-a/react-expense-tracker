@@ -15,11 +15,11 @@ export const useExpenses = () => {
     setExpenses((prev) => [data, ...prev])
   }
 
-  const removeExpense = (id: number) => {
+  const removeExpense = (id: string) => {
     setExpenses((prev) => prev.filter((e) => e.id !== id))
   }
 
-  const updateExpense = (id: number, updates: Partial<Expense>) => {
+  const updateExpense = (id: string, updates: Partial<Expense>) => {
     setExpenses((prev) =>
       prev.map((e) => (e.id === id ? { ...e, ...updates } : e)),
     )

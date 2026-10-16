@@ -5,8 +5,8 @@ import { useExpenses } from '../hooks/useExpenses'
 interface ExpenseContextType {
   expenses: Expense[]
   addExpense: (data: Expense) => void
-  removeExpense: (id: number) => void
-  updateExpense: (id: number, updates: Partial<Expense>) => void
+  removeExpense: (id: string) => void
+  updateExpense: (id: string, updates: Partial<Expense>) => void
   groupedByCategory: Record<string, Expense[]>
 }
 
